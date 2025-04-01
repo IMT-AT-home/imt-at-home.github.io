@@ -90,7 +90,7 @@ export function Home() {
   const videoSlides = [
     {
       type: 'video',
-      src: 'assets/demo_ai_video.mp4',
+      src: '/demo_ai_video.mp4',
       alt: 'AI Demo',
       title: 'Robot AI Demonstration',
       description:
@@ -98,14 +98,14 @@ export function Home() {
     },
     {
       type: 'video',
-      src: 'assets/communication_test.mp4',
+      src: '/communication_test.mp4',
       alt: 'Navigation Demo',
       title: 'Communication with ROS2',
       description: "Demonstration of the robot's communication with ROS2."
     },
     {
       type: 'video',
-      src: 'assets/walking_test.mp4',
+      src: '/walking_test.mp4',
       alt: 'Walking Test',
       title: 'Robot Walking Test',
       description: "Testing the robot's walking by meters capabilities."
