@@ -184,7 +184,7 @@ export function Home() {
                 zIndex: 5
               }}
             >
-              RADIn
+              Mirai 未来
               <br />
               Robô Autônomo Doméstico
               <br />
@@ -442,7 +442,7 @@ export function Home() {
             align: 'center',
             loop: true
           }}
-          className="w-full max-w-4xl"
+          className="w-2/3 max-w-4xl"
           setApi={setCarouselApi}
         >
           <CarouselContent>
