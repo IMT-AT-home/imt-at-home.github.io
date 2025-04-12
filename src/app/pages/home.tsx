@@ -380,7 +380,7 @@ export function Home() {
             <p className="w-10/12 text-center transition-all duration-1000">
               {showFullTextAbtComp ? (
                 <>
-                  RoboCup@Home is one of the world's leading robotics
+                  RoboCup@Home is one of the world&apos;s leading robotics
                   competitions focused on developing service robots capable of
                   interacting with and assisting humans in domestic and social
                   environments. As part of the larger RoboCup event, which
@@ -390,23 +390,24 @@ export function Home() {
                   people, understanding voice commands, navigating dynamic
                   environments, and handling objects with precision. The main
                   goal of RoboCup@Home is to drive innovation in developing
-                  robots that can improve people's quality of life — whether by
-                  assisting the elderly and people with disabilities or
-                  optimizing household activities and public service
+                  robots that can improve people&apos;s quality of life —
+                  whether by assisting the elderly and people with disabilities
+                  or optimizing household activities and public service
                   environments. The competition is divided into different
-                  challenges, each assessing the robot's ability to perceive its
-                  surroundings, plan actions, make decisions, and interact
-                  naturally with humans. Participating in RoboCup@Home requires
-                  teams to have deep knowledge in areas such as computer vision,
-                  machine learning, natural language processing, motion control,
-                  and systems integration. The competition not only pushes
-                  technological advancements but also fosters international
-                  collaboration and knowledge exchange among students,
-                  researchers, and professionals in the field.
+                  challenges, each assessing the robot&apos;s ability to
+                  perceive its surroundings, plan actions, make decisions, and
+                  interact naturally with humans. Participating in RoboCup@Home
+                  requires teams to have deep knowledge in areas such as
+                  computer vision, machine learning, natural language
+                  processing, motion control, and systems integration. The
+                  competition not only pushes technological advancements but
+                  also fosters international collaboration and knowledge
+                  exchange among students, researchers, and professionals in the
+                  field.
                 </>
               ) : (
                 <>
-                  RoboCup@Home is one of the world's leading robotics
+                  RoboCup@Home is one of the world&apos;s leading robotics
                   competitions focused on developing service robots capable of
                   interacting with and assisting humans in domestic and social
                   environments. As part of the larger RoboCup event, which
@@ -432,9 +433,9 @@ export function Home() {
           Project Videos
         </h1>
         <p className="mb-10 w-full text-center md:w-2/3 lg:w-1/2">
-          Check out these videos showcasing our robot's capabilities in action.
-          From AI interactions to autonomous navigation, see how RADIn performs
-          in real-world scenarios.
+          Check out these videos showcasing our robot&apos;s capabilities in
+          action. From AI interactions to autonomous navigation, see how Mirai
+          performs in real-world scenarios.
         </p>
 
         <Carousel
