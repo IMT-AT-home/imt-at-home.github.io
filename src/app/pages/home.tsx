@@ -419,7 +419,7 @@ export function Home() {
               className="mt-4 rounded-lg bg-black p-3 text-white transition-all duration-1000 hover:bg-gray-800"
               onClick={handleToggleTextAbtComp}
             >
-              {showFullText ? 'Leia Menos' : 'Leia Mais'}
+              {showFullTextAbtComp ? 'Read Less' : 'Read More'}
             </button>
           </div>
         </div>
