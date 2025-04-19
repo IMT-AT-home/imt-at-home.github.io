@@ -186,7 +186,7 @@ export function Home() {
             >
               Mirai 未来
               <br />
-              Robô Autônomo Doméstico
+              Autonomous Domestic Robot
               <br />
               <br />
               自律型家庭用ロボット
