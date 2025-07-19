@@ -37,42 +37,42 @@ const integrants: Integrant[] = [
   {
     name: 'Pedro Bauke',
     position: 'Responsible for Software',
-    img: 'https://media.licdn.com/dms/image/v2/D4D03AQHu6-Soom4jfg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1727641516552?e=1747872000&v=beta&t=aPpPeKAjyaHh61F6I4IcEuUV2U3P0wtBlxy5aooOexo',
+    img: 'profile_photos/bauke.jpeg',
     bio: 'Responsible for the ROS2 integration, Navigation, Autonomous movement and the overall software architecture.',
     link: 'https://www.linkedin.com/in/pedro-bauke-b1284a30b/'
   },
   {
     name: 'Aline Nunes',
     position: 'Responsible for Eletronics',
-    img: 'https://media.licdn.com/dms/image/v2/D4D03AQGHdSYoj_SvfQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1680050490636?e=1747872000&v=beta&t=DL2BlmMOqAEOGVcatEh3EnKV2sSUhXahq1b70lpMkTs',
+    img: 'profile_photos/aline.jpeg',
     bio: 'Responsible for the electronics, arm control and overall control-related tasks of the robot.',
     link: 'https://www.linkedin.com/in/alinenuneswatanabe/'
   },
   {
     name: 'Eliana So',
     position: 'Responsible for Mechanics',
-    img: 'https://media.licdn.com/dms/image/v2/D4D03AQFj7ZwDwp3Wew/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1723709947966?e=1747872000&v=beta&t=fDNvrYJC38BVLlAxRtMwdqCgIUoOU4Gz8jLc9BCCNBY',
+    img: 'profile_photos/eliana.jpeg',
     bio: 'Responsible for the mechanical design of the robot and 3D modeling, as well as Navigation and Autonomous movement.',
     link: 'https://www.linkedin.com/in/eliana-so/'
   },
   {
     name: 'Erick Wu',
     position: 'Responsible for Mechanics',
-    img: 'https://media.licdn.com/dms/image/v2/C4D03AQHoR6Aty_ZODA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1622075771245?e=1747872000&v=beta&t=nI0WkX2rhEPWYzuYnD7FtDY30V6EHw1hEYWnmFIYqSs',
+    img: 'profile_photos/erick.jpeg',
     bio: 'Responsible for the arm modeling and control and arm-related tasks.',
     link: 'https://www.linkedin.com/in/erick-wu-a19368209/'
   },
   {
     name: 'Anderson Harayashiki',
     position: 'Professor Adviser',
-    img: 'https://media.licdn.com/dms/image/v2/D5603AQFsnYS9kUyzxA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1729804852931?e=1747872000&v=beta&t=G0jaKlXug7Ui_hIoHMAwR9x3tp5nrSs9-kB43hzIu_M',
+    img: 'profile_photos/anderson.jpeg',
     bio: 'Responsible for the guidance and overall project management, as well as the integration of the different areas of the project and techinical support.',
     link: 'https://www.linkedin.com/in/andersonhm/'
   },
   {
     name: 'Maicon Koji',
     position: 'Responsible for Mechanics',
-    img: 'https://media.licdn.com/dms/image/v2/D4D03AQHYAEHfJBZ00w/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1727046267870?e=1747872000&v=beta&t=-kS-eSR0pPWe4i4i-fOuDH_AN5D7p6pLdaqjvvN-iCo',
+    img: 'profile_photos/maicon.jpeg',
     bio: 'Responsible for the mechanical design of the robot and 3D modeling.',
     link: 'https://www.linkedin.com/in/maicon-koji-778183207/'
   }
