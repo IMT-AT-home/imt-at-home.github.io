@@ -121,7 +121,7 @@ export function Home() {
       title: 'Robot Walking Test',
       description: "Testing the robot's walking by meters capabilities.",
       link: '/walking_test.mp4'
-    },
+    }
   ]
 
   const handleToggleText = () => {
@@ -142,7 +142,11 @@ export function Home() {
     if (videoRefs.current && videoRefs.current.length > 0) {
       // Pause all videos (only for non-YouTube videos)
       videoRefs.current.forEach((video, index) => {
-        if (video && index !== currentSlide && videoSlides[index]?.type === 'video') {
+        if (
+          video &&
+          index !== currentSlide &&
+          videoSlides[index]?.type === 'video'
+        ) {
           video.pause()
         }
       })
@@ -292,61 +296,66 @@ export function Home() {
       </div>
 
       <div
-        className={`duration-3000 flex min-h-screen w-full transform flex-col items-center justify-center px-4 transition-all sm:px-0 ${fade ? 'opacity-100' : 'opacity-0'}`}
+        className={`duration-3000 flex min-h-screen w-full transform flex-col items-center justify-center px-4 transition-all sm:px-6 lg:px-8 ${fade ? 'opacity-100' : 'opacity-0'}`}
         id="integrants"
       >
-        <h1 className="mb-8 text-center font-mont text-2xl font-bold transition-all duration-1000 sm:text-4xl">
+        <h1 className="mb-6 text-center font-mont text-xl font-bold transition-all duration-1000 sm:mb-8 sm:text-2xl md:text-3xl lg:text-4xl">
           Integrants
         </h1>
-        <Carousel
-          opts={{
-            align: 'start',
-            containScroll: 'trimSnaps' // Added to prevent overflow
-          }}
-          className="w-full max-w-lg px-4 sm:px-0 lg:max-w-4xl" // Modified classes
-        >
-          <CarouselContent>
-            {integrants.map((integrant, index) => (
-              <CarouselItem
-                key={index}
-                className="basis-full sm:basis-1/2 lg:basis-1/4"
+        <div className="xs:grid-cols-2 grid w-full max-w-7xl grid-cols-1 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+          {integrants.map((integrant, index) => (
+            <div key={index} className="group relative">
+              <Card
+                className="h-28 w-full cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg sm:h-32 md:h-36"
+                onClick={() =>
+                  window.open(integrant.link, '_blank', 'noopener,noreferrer')
+                }
               >
-                <div className="p-1">
-                  <Card
-                    className="min-h-[26rem] transition-all duration-500"
-                    onClick={() =>
-                      window.open(
-                        integrant.link,
-                        '_blank',
-                        'noopener,noreferrer'
-                      )
-                    }
-                  >
-                    <CardHeader className="items-center pb-0">
-                      <Avatar className="h-[75px] w-[75px]">
-                        <AvatarImage src={integrant.img} />
-                        <AvatarFallback>
-                          {`${integrant.name.split(' ')[0].substring(0, 1)}${integrant.name.split(' ')[1].substring(0, 1)}`}
-                        </AvatarFallback>
-                      </Avatar>
-                      <CardTitle className="">{integrant.name}</CardTitle>
-                      <CardDescription className="text-xs">
-                        {integrant.position}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex items-center justify-center p-6">
-                      <span className="text-center text-base font-light">
-                        {integrant.bio}
-                      </span>
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious /> {/* Adjusted positioning */}
-          <CarouselNext /> {/* Adjusted positioning */}
-        </Carousel>
+                <CardContent className="flex h-full flex-col items-center justify-center p-2 sm:p-3">
+                  <Avatar className="mb-1 h-10 w-10 sm:mb-2 sm:h-12 sm:w-12 md:h-14 md:w-14">
+                    <AvatarImage src={integrant.img} />
+                    <AvatarFallback className="text-sm sm:text-base">
+                      {`${integrant.name.split(' ')[0].substring(0, 1)}${integrant.name.split(' ')[1].substring(0, 1)}`}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="text-center">
+                    <p className="text-sm font-semibold leading-tight sm:text-base md:text-lg">
+                      {integrant.name}
+                    </p>
+                    <p className="mt-1 text-xs text-gray-600 dark:text-gray-400 sm:text-sm">
+                      {integrant.position}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Hover card with full information */}
+              <div className="invisible absolute left-1/2 top-full z-50 mt-2 -translate-x-1/2 transform opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100">
+                <Card className="w-56 border-2 bg-white p-3 shadow-xl dark:bg-gray-800 sm:w-64 sm:p-4">
+                  <div className="flex flex-col items-center text-center">
+                    <Avatar className="mb-3 h-14 w-14 sm:h-16 sm:w-16">
+                      <AvatarImage src={integrant.img} />
+                      <AvatarFallback>
+                        {`${integrant.name.split(' ')[0].substring(0, 1)}${integrant.name.split(' ')[1].substring(0, 1)}`}
+                      </AvatarFallback>
+                    </Avatar>
+                    <h3 className="mb-1 text-sm font-semibold sm:text-base">
+                      {integrant.name}
+                    </h3>
+                    <p className="mb-3 text-xs text-gray-600 dark:text-gray-400 sm:text-sm">
+                      {integrant.position}
+                    </p>
+                    <p className="text-xs leading-relaxed text-gray-700 dark:text-gray-300 sm:text-sm">
+                      {integrant.bio}
+                    </p>
+                  </div>
+                  {/* Arrow pointing up */}
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 transform border-b-8 border-l-8 border-r-8 border-b-white border-l-transparent border-r-transparent dark:border-b-gray-800"></div>
+                </Card>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div
@@ -457,12 +466,16 @@ export function Home() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation()
-                          window.open(slide.link, '_blank', 'noopener,noreferrer')
+                          window.open(
+                            slide.link,
+                            '_blank',
+                            'noopener,noreferrer'
+                          )
                         }}
-                        className="ml-2 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                        className="ml-2 rounded-full p-2 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
                         title="Open video in new tab"
                       >
-                        <FiExternalLink className="w-4 h-4" />
+                        <FiExternalLink className="h-4 w-4" />
                       </button>
                     </div>
                   </CardHeader>
@@ -482,8 +495,12 @@ export function Home() {
                           ref={(el) => (videoRefs.current[index] = el)}
                           className="h-full w-full object-cover"
                           controls
-                          autoPlay={index === currentSlide && slide.type === 'video'}
-                          muted={index === currentSlide && slide.type === 'video'}
+                          autoPlay={
+                            index === currentSlide && slide.type === 'video'
+                          }
+                          muted={
+                            index === currentSlide && slide.type === 'video'
+                          }
                           playsInline
                           poster={`assets/${slide.alt.toLowerCase().replace(' ', '_')}_thumbnail.jpg`}
                         >
@@ -532,44 +549,57 @@ export function Home() {
         <p className="mb-10 w-full text-center md:w-2/3 lg:w-1/2">
           Follow our journey from concept to competition-ready robot.
         </p>
-        
+
         <div className="w-full max-w-4xl">
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-1/2 h-full w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 transform -translate-x-1/2"></div>
-            
+            <div className="absolute left-1/2 h-full w-1 -translate-x-1/2 transform bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500"></div>
+
             {[
               {
-                date: "2024 T3",
-                title: "Project Inception",
-                description: "Team formation and initial project planning for RoboCup @Home participation.",
-                side: "left"
+                date: '2024 T3',
+                title: 'Project Inception',
+                description:
+                  'Team formation and initial project planning for RoboCup @Home participation.',
+                side: 'left'
               },
               {
-                date: "2024 T4",
-                title: "Hardware Development",
-                description: "Mechanical platform design and first robot prototype assembly.",
-                side: "right"
+                date: '2024 T4',
+                title: 'Hardware Development',
+                description:
+                  'Mechanical platform design and first robot prototype assembly.',
+                side: 'right'
               },
               {
-                date: "2025 T1",
-                title: "Software Architecture",
-                description: "Motor testing, ROS2 integration, and initial software development.",
-                side: "left"
+                date: '2025 T1',
+                title: 'Software Architecture',
+                description:
+                  'Motor testing, ROS2 integration, and initial software development.',
+                side: 'left'
               },
               {
-                date: "2025 T2",
-                title: "Testing & Validation",
-                description: "Conversational AI integration, mechanical full system design, and testing of core functionalities.",
-                side: "right"
-              },
+                date: '2025 T2',
+                title: 'Testing & Validation',
+                description:
+                  'Conversational AI integration, mechanical full system design, and testing of core functionalities.',
+                side: 'right'
+              }
             ].map((milestone, index) => (
-              <div key={index} className={`relative mb-12 flex items-center ${milestone.side === 'left' ? 'justify-end pr-8' : 'justify-start pl-8'}`}>
-                <div className={`w-5/12 ${milestone.side === 'left' ? 'text-right' : 'text-left'}`}>
+              <div
+                key={index}
+                className={`relative mb-12 flex items-center ${milestone.side === 'left' ? 'justify-end pr-8' : 'justify-start pl-8'}`}
+              >
+                <div
+                  className={`w-5/12 ${milestone.side === 'left' ? 'text-right' : 'text-left'}`}
+                >
                   <Card className="transition-all duration-300 hover:shadow-lg">
                     <CardHeader>
-                      <div className={`flex items-center gap-2 ${milestone.side === 'left' ? 'justify-end' : 'justify-start'}`}>
-                        <CardTitle className="text-lg">{milestone.title}</CardTitle>
+                      <div
+                        className={`flex items-center gap-2 ${milestone.side === 'left' ? 'justify-end' : 'justify-start'}`}
+                      >
+                        <CardTitle className="text-lg">
+                          {milestone.title}
+                        </CardTitle>
                       </div>
                       <CardDescription className="font-semibold text-blue-600 dark:text-blue-400">
                         {milestone.date}
@@ -581,7 +611,7 @@ export function Home() {
                   </Card>
                 </div>
                 {/* Timeline dot */}
-                <div className="absolute left-1/2 h-4 w-4 rounded-full bg-white border-4 border-blue-500 transform -translate-x-1/2 shadow-lg"></div>
+                <div className="absolute left-1/2 h-4 w-4 -translate-x-1/2 transform rounded-full border-4 border-blue-500 bg-white shadow-lg"></div>
               </div>
             ))}
           </div>
@@ -596,9 +626,10 @@ export function Home() {
           Connect With Us
         </h1>
         <p className="mb-10 w-full text-center md:w-2/3 lg:w-1/2">
-          Want to learn more about our project or collaborate? Get in touch with the IMT @ Home team.
+          Want to learn more about our project or collaborate? Get in touch with
+          the IMT @ Home team.
         </p>
-        
+
         <div className="w-full max-w-4xl">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <Card className="transition-all duration-300 hover:shadow-lg">
@@ -610,7 +641,8 @@ export function Home() {
               </CardHeader>
               <CardContent>
                 <p className="mb-4 text-sm text-gray-600 dark:text-gray-300">
-                  Our project is developed at Instituto Mauá de Tecnologia, a leading engineering institution in Brazil.
+                  Our project is developed at Instituto Mauá de Tecnologia, a
+                  leading engineering institution in Brazil.
                 </p>
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center gap-2">
@@ -619,7 +651,12 @@ export function Home() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span>🌐</span>
-                    <a href="https://maua.br" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline dark:text-blue-400">
+                    <a
+                      href="https://maua.br"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline dark:text-blue-400"
+                    >
                       maua.br
                     </a>
                   </div>
@@ -636,29 +673,33 @@ export function Home() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <a 
-                    href="https://github.com/IMT-AT-home/athome" 
-                    target="_blank" 
+                  <a
+                    href="https://github.com/IMT-AT-home/athome"
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-lg bg-gray-100 dark:bg-gray-800 transition-all hover:bg-gray-200 dark:hover:bg-gray-700"
+                    className="flex items-center gap-3 rounded-lg bg-gray-100 p-3 transition-all hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
                   >
                     <FiGithub className="text-xl" />
                     <div>
                       <div className="font-semibold">GitHub Repository</div>
-                      <div className="text-xs text-gray-600 dark:text-gray-300">View our source code</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-300">
+                        View our source code
+                      </div>
                     </div>
                   </a>
-                  
-                  <a 
-                    href="https://athome.robocup.org/" 
-                    target="_blank" 
+
+                  <a
+                    href="https://athome.robocup.org/"
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-lg bg-gray-100 dark:bg-gray-800 transition-all hover:bg-gray-200 dark:hover:bg-gray-700"
+                    className="flex items-center gap-3 rounded-lg bg-gray-100 p-3 transition-all hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
                   >
                     <GoTrophy className="text-xl" />
                     <div>
                       <div className="font-semibold">RoboCup @Home</div>
-                      <div className="text-xs text-gray-600 dark:text-gray-300">Official competition website</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-300">
+                        Official competition website
+                      </div>
                     </div>
                   </a>
                 </div>
