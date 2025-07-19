@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { useTheme } from '../hooks/use-theme'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { type CarouselApi } from '@/components/ui/carousel'
+import { FiGithub, FiExternalLink } from 'react-icons/fi'
+import { GoTrophy } from 'react-icons/go'
 
 import {
   Carousel,
@@ -86,30 +88,40 @@ export function Home() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
-
   const videoSlides = [
+    {
+      type: 'youtube',
+      src: 'https://www.youtube.com/embed/kKJjD6PnqGE',
+      alt: 'Conversation Test',
+      title: 'Robot communication test',
+      description: "Testing the robot's communication capabilities.",
+      link: 'https://youtu.be/kKJjD6PnqGE'
+    },
     {
       type: 'video',
       src: '/demo_ai_video.mp4',
       alt: 'AI Demo',
       title: 'Robot AI Demonstration',
       description:
-        "Showcasing our robot's artificial intelligence capabilities."
+        "Showcasing our robot's artificial intelligence capabilities.",
+      link: '/demo_ai_video.mp4'
     },
     {
       type: 'video',
       src: '/communication_test.mp4',
       alt: 'Navigation Demo',
       title: 'Communication with ROS2',
-      description: "Demonstration of the robot's communication with ROS2."
+      description: "Demonstration of the robot's communication with ROS2.",
+      link: '/communication_test.mp4'
     },
     {
       type: 'video',
       src: '/walking_test.mp4',
       alt: 'Walking Test',
       title: 'Robot Walking Test',
-      description: "Testing the robot's walking by meters capabilities."
-    }
+      description: "Testing the robot's walking by meters capabilities.",
+      link: '/walking_test.mp4'
+    },
   ]
 
   const handleToggleText = () => {
@@ -128,16 +140,16 @@ export function Home() {
 
   useEffect(() => {
     if (videoRefs.current && videoRefs.current.length > 0) {
-      // Pause all videos
+      // Pause all videos (only for non-YouTube videos)
       videoRefs.current.forEach((video, index) => {
-        if (video && index !== currentSlide) {
+        if (video && index !== currentSlide && videoSlides[index]?.type === 'video') {
           video.pause()
         }
       })
 
-      // Play the current video
+      // Play the current video (only for non-YouTube videos)
       const currentVideo = videoRefs.current[currentSlide]
-      if (currentVideo) {
+      if (currentVideo && videoSlides[currentSlide]?.type === 'video') {
         currentVideo.play().catch((error) => {
           console.log('Autoplay prevented:', error)
           // You might want to show a play button or message here
@@ -167,10 +179,10 @@ export function Home() {
       }}
     >
       <div className="relative flex min-h-screen w-full items-center justify-center">
-        <div className="flex w-full flex-col items-center justify-center gap-8 sm:flex-row">
+        <div className="relative z-10 flex w-full flex-col items-center justify-center gap-8 sm:flex-row">
           <div className="flex justify-center">
             <img
-              src="/robo-dancando.gif"
+              src="/Mirai_Idle.gif"
               alt="Robô"
               className="w-80 max-w-full overflow-hidden" // Added max-w-full
             />
@@ -207,20 +219,6 @@ export function Home() {
           </div>
         </div>
       </div>
-
-      {/* <div
-        className="flex min-h-screen w-full flex-col items-center justify-center"
-        id="repos"
-      >
-        <h1 className="mb-6 text-center font-mont text-2xl font-bold transition-all duration-1000 sm:text-4xl">
-          Repos
-        </h1>
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-2">
-          {infosRepos.map((info, index) => (
-            <InfoCard key={info.title} info={info} delay={index} />
-          ))}
-        </div>
-      </div> */}
 
       <div
         className="flex min-h-screen w-full flex-col items-center justify-center px-4 sm:px-0"
@@ -451,23 +449,48 @@ export function Home() {
               <CarouselItem key={index} className="md:basis-4/5 lg:basis-3/4">
                 <Card className="overflow-hidden">
                   <CardHeader className="pb-2">
-                    <CardTitle>{slide.title}</CardTitle>
-                    <CardDescription>{slide.description}</CardDescription>
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <CardTitle>{slide.title}</CardTitle>
+                        <CardDescription>{slide.description}</CardDescription>
+                      </div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          window.open(slide.link, '_blank', 'noopener,noreferrer')
+                        }}
+                        className="ml-2 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                        title="Open video in new tab"
+                      >
+                        <FiExternalLink className="w-4 h-4" />
+                      </button>
+                    </div>
                   </CardHeader>
                   <CardContent className="p-0">
                     <div className="relative aspect-video w-full">
-                      <video
-                        ref={(el) => (videoRefs.current[index] = el)}
-                        className="h-full w-full object-cover"
-                        controls
-                        autoPlay={index === currentSlide}
-                        muted={index === currentSlide}
-                        playsInline
-                        poster={`assets/${slide.alt.toLowerCase().replace(' ', '_')}_thumbnail.jpg`}
-                      >
-                        <source src={slide.src} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
+                      {slide.type === 'youtube' ? (
+                        <iframe
+                          className="h-full w-full"
+                          src={slide.src}
+                          title={slide.title}
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                        />
+                      ) : (
+                        <video
+                          ref={(el) => (videoRefs.current[index] = el)}
+                          className="h-full w-full object-cover"
+                          controls
+                          autoPlay={index === currentSlide && slide.type === 'video'}
+                          muted={index === currentSlide && slide.type === 'video'}
+                          playsInline
+                          poster={`assets/${slide.alt.toLowerCase().replace(' ', '_')}_thumbnail.jpg`}
+                        >
+                          <source src={slide.src} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -497,6 +520,152 @@ export function Home() {
           <CarouselPrevious className="left-2 sm:left-4" />
           <CarouselNext className="right-2 sm:right-4" />
         </Carousel>
+      </div>
+
+      <div
+        className="flex min-h-screen w-full flex-col items-center justify-center px-4 py-16 sm:px-0"
+        id="timeline"
+      >
+        <h1 className="mb-8 text-center font-mont text-2xl font-bold transition-all duration-1000 sm:text-4xl">
+          Project Timeline & Achievements
+        </h1>
+        <p className="mb-10 w-full text-center md:w-2/3 lg:w-1/2">
+          Follow our journey from concept to competition-ready robot.
+        </p>
+        
+        <div className="w-full max-w-4xl">
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="absolute left-1/2 h-full w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 transform -translate-x-1/2"></div>
+            
+            {[
+              {
+                date: "2024 T3",
+                title: "Project Inception",
+                description: "Team formation and initial project planning for RoboCup @Home participation.",
+                side: "left"
+              },
+              {
+                date: "2024 T4",
+                title: "Hardware Development",
+                description: "Mechanical platform design and first robot prototype assembly.",
+                side: "right"
+              },
+              {
+                date: "2025 T1",
+                title: "Software Architecture",
+                description: "Motor testing, ROS2 integration, and initial software development.",
+                side: "left"
+              },
+              {
+                date: "2025 T2",
+                title: "Testing & Validation",
+                description: "Conversational AI integration, mechanical full system design, and testing of core functionalities.",
+                side: "right"
+              },
+            ].map((milestone, index) => (
+              <div key={index} className={`relative mb-12 flex items-center ${milestone.side === 'left' ? 'justify-end pr-8' : 'justify-start pl-8'}`}>
+                <div className={`w-5/12 ${milestone.side === 'left' ? 'text-right' : 'text-left'}`}>
+                  <Card className="transition-all duration-300 hover:shadow-lg">
+                    <CardHeader>
+                      <div className={`flex items-center gap-2 ${milestone.side === 'left' ? 'justify-end' : 'justify-start'}`}>
+                        <CardTitle className="text-lg">{milestone.title}</CardTitle>
+                      </div>
+                      <CardDescription className="font-semibold text-blue-600 dark:text-blue-400">
+                        {milestone.date}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm">{milestone.description}</p>
+                    </CardContent>
+                  </Card>
+                </div>
+                {/* Timeline dot */}
+                <div className="absolute left-1/2 h-4 w-4 rounded-full bg-white border-4 border-blue-500 transform -translate-x-1/2 shadow-lg"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="flex min-h-screen w-full flex-col items-center justify-center px-4 py-16 sm:px-0"
+        id="contact"
+      >
+        <h1 className="mb-8 text-center font-mont text-2xl font-bold transition-all duration-1000 sm:text-4xl">
+          Connect With Us
+        </h1>
+        <p className="mb-10 w-full text-center md:w-2/3 lg:w-1/2">
+          Want to learn more about our project or collaborate? Get in touch with the IMT @ Home team.
+        </p>
+        
+        <div className="w-full max-w-4xl">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            <Card className="transition-all duration-300 hover:shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <div className="text-2xl">🏫</div>
+                  Instituto Mauá de Tecnologia
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="mb-4 text-sm text-gray-600 dark:text-gray-300">
+                  Our project is developed at Instituto Mauá de Tecnologia, a leading engineering institution in Brazil.
+                </p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <span>📍</span>
+                    <span>São Caetano do Sul, SP - Brazil</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span>🌐</span>
+                    <a href="https://maua.br" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline dark:text-blue-400">
+                      maua.br
+                    </a>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="transition-all duration-300 hover:shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <div className="text-2xl">🔗</div>
+                  Project Links
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <a 
+                    href="https://github.com/IMT-AT-home/athome" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-gray-100 dark:bg-gray-800 transition-all hover:bg-gray-200 dark:hover:bg-gray-700"
+                  >
+                    <FiGithub className="text-xl" />
+                    <div>
+                      <div className="font-semibold">GitHub Repository</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-300">View our source code</div>
+                    </div>
+                  </a>
+                  
+                  <a 
+                    href="https://athome.robocup.org/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-gray-100 dark:bg-gray-800 transition-all hover:bg-gray-200 dark:hover:bg-gray-700"
+                  >
+                    <GoTrophy className="text-xl" />
+                    <div>
+                      <div className="font-semibold">RoboCup @Home</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-300">Official competition website</div>
+                    </div>
+                  </a>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </div>
     </main>
   )
