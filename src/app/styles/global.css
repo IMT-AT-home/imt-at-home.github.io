@@ -58,7 +58,45 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Animações customizadas */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Transições suaves para GIFs usando CSS transitions */
+.gif-smooth-transition {
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+/* Melhorias de responsividade para o PillNav */
+@media (max-width: 360px) {
+  .pill-nav-mobile-menu {
+    left: 0.25rem !important;
+    right: 0.25rem !important;
+    font-size: 13px !important;
+  }
+  
+  .pill-nav-mobile-item {
+    padding: 0.5rem 0.75rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .pill-nav-container {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
   }
 }
