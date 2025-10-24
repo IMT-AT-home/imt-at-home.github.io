@@ -8,6 +8,8 @@ export type PillNavItem = {
   ariaLabel?: string
 }
 
+export type Language = 'en' | 'pt'
+
 export interface PillNavProps {
   logo: string
   logoAlt?: string
@@ -21,6 +23,8 @@ export interface PillNavProps {
   pillTextColor?: string
   onMobileMenuClick?: () => void
   initialLoadAnimation?: boolean
+  language?: Language
+  setLanguage?: (lang: Language) => void
 }
 
 const PillNav: React.FC<PillNavProps> = ({
@@ -35,7 +39,9 @@ const PillNav: React.FC<PillNavProps> = ({
   hoveredPillTextColor = '#060010',
   pillTextColor,
   onMobileMenuClick,
-  initialLoadAnimation = true
+  initialLoadAnimation = true,
+  language,
+  setLanguage
 }) => {
   const resolvedPillTextColor = pillTextColor ?? baseColor
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -495,6 +501,36 @@ const PillNav: React.FC<PillNavProps> = ({
               )
             })}
           </ul>
+
+          {/* Language Switch - Desktop */}
+          {language && setLanguage && (
+            <div className="ml-1 flex items-center gap-1.5 pl-1">
+              <button
+                onClick={() => setLanguage('en')}
+                aria-pressed={language === 'en'}
+                aria-label="Switch to English"
+                className={`inline-flex h-[30px] items-center justify-center rounded-full px-3 text-xs font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 ${
+                  language === 'en'
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-transparent text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
+                }`}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLanguage('pt')}
+                aria-pressed={language === 'pt'}
+                aria-label="Alternar para Português"
+                className={`inline-flex h-[30px] items-center justify-center rounded-full px-3 text-xs font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 ${
+                  language === 'pt'
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-transparent text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
+                }`}
+              >
+                PT
+              </button>
+            </div>
+          )}
         </div>
 
         <button
@@ -580,6 +616,44 @@ const PillNav: React.FC<PillNavProps> = ({
               </li>
             )
           })}
+
+          {/* Language Switch - Mobile */}
+          {language && setLanguage && (
+            <li className="px-1 py-2">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    setLanguage('en')
+                    setIsMobileMenuOpen(false)
+                  }}
+                  aria-pressed={language === 'en'}
+                  aria-label="Switch to English"
+                  className={`flex-1 rounded-full py-2.5 text-center text-sm font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    language === 'en'
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-white/50 text-gray-700 hover:bg-white dark:bg-gray-800/50 dark:text-gray-200 dark:hover:bg-gray-800'
+                  }`}
+                >
+                  EN
+                </button>
+                <button
+                  onClick={() => {
+                    setLanguage('pt')
+                    setIsMobileMenuOpen(false)
+                  }}
+                  aria-pressed={language === 'pt'}
+                  aria-label="Alternar para Português"
+                  className={`flex-1 rounded-full py-2.5 text-center text-sm font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    language === 'pt'
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-white/50 text-gray-700 hover:bg-white dark:bg-gray-800/50 dark:text-gray-200 dark:hover:bg-gray-800'
+                  }`}
+                >
+                  PT
+                </button>
+              </div>
+            </li>
+          )}
         </ul>
       </div>
     </div>
